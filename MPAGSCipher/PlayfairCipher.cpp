@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-// Out project headers
+// Our project headers
 #include "Alphabet.hpp"
 #include "PlayfairCipher.hpp"
 
