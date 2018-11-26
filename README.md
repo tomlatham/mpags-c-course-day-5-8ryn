@@ -3,7 +3,7 @@ A simple command line tool for encrypting/decrypting text using classical cipher
 
 # Building `mpags-cipher`
 Compilation of `mpags-cipher` requires the [CMake](http://www.cmake.org)
-build tool, plus a  C++11 compatible compiler (GCC 4.8 or better, Clang
+build tool, plus a  C++14 compatible compiler (GCC 4.8 or better, Clang
 3.4 or better are recommended) and `make` on a UNIX operating system.
 Windows platforms with Visual Studio 2015 or better are also expected to
 work, but not tested.
@@ -75,7 +75,7 @@ Available options:
 
   -c|--cipher CIPHER
                       Specify the cipher to be used to perform the encryption/decryption
-                      CIPHER can either be caesar or playfair - caesar is the default
+                      CIPHER can either be caesar, playfair or vigenere - caesar is the default
 
   -k|--key KEY
                       Specify the cipher KEY
@@ -100,7 +100,7 @@ classical ciphers, it is transliterated using the following rules:
 - Digits are translated to their English equivalent words (e.g. '0' -> "ZERO")
 - All other characters (punctuation) are discarded
 
-At present, the Caesar and Playfair ciphers are supported.
+At present, the Caesar, Playfair and Vigenere ciphers are supported.
 
 # Testing
 
@@ -120,8 +120,12 @@ MPAGS-Code
 │   ├── CMakeLists.txt
 │   └── Doxyfile.in
 ├── MPAGSCipher           Subdirectory for MPAGSCipher library code
+│   ├── Alphabet.hpp
 │   ├── CaesarCipher.cpp
 │   ├── CaesarCipher.hpp
+│   ├── CipherFactory.cpp
+│   ├── CipherFactory.hpp
+│   ├── Cipher.hpp
 │   ├── CipherMode.hpp
 │   ├── CipherType.hpp
 │   ├── PlayfairCipher.cpp
@@ -129,14 +133,15 @@ MPAGS-Code
 │   ├── ProcessCommandLine.cpp
 │   ├── ProcessCommandLine.hpp
 │   ├── TransformChar.cpp
-│   └── TransformChar.hpp
+│   ├── TransformChar.hpp
+│   ├── VigenereCipher.cpp
+│   └── VigenereCipher.hpp
 ├── Testing               Subdirectory for testing the MPAGSCipher library
 │   ├── CMakeLists.txt
 │   ├── catch.hpp
-│   ├── testCaesarCipher.cpp
 │   ├── testCatch.cpp
+│   ├── testCiphers.cpp
 │   ├── testHello.cpp
-│   ├── testPlayfairCipher.cpp
 │   ├── testProcessCommandLine.cpp
 │   └── testTransformChar.cpp
 ```
