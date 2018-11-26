@@ -27,7 +27,7 @@ void VigenereCipher::setKey(const std::string& key ){
   
   // Check if the key is empty and replace with default if so
   if(key_ ==""){
-    std::cout << "No key has been provided and so key has been set to \"A\" meaning no encryption" << std::endl;
+    std::cerr << "[error] No key has been provided and so key has been set to \"A\" meaning no encryption" << std::endl;
     key_ = "A";
   }
 
@@ -61,7 +61,7 @@ std::string VigenereCipher::applyCipher( const std::string& inputText, \
     
     // Find the Caesar cipher from the lookup
     auto posIt = charLookup_.find(keyChar);
-    CaesarCipher cipher = (*posIt).second;
+    const CaesarCipher& cipher = (*posIt).second;
     
     // Run the (de)encryption
     // Add the result to the output

@@ -13,29 +13,40 @@
  */
 
 /**
- *\interface Cipher
+ * \interface Cipher
  * \brief Encrypt or decrypt text using the implmented cipher with the given key
  */ 
 class Cipher {
   public:
+    /// Default constructor
     Cipher() = default;
+
+    /// Copy constructor
     Cipher(const Cipher& rhs) = default;
+
+    /// Move constructor
     Cipher(Cipher&& rhs) = default;
+
+    /// Copy assignment operator
     Cipher& operator=(const Cipher& rhs) = default;
+
+    /// Move assignment operator
     Cipher& operator=(Cipher&& rhs) = default;
+
+    /// Destructor
     virtual ~Cipher() = default;
 
 
 
   /**
-   * Apply the cipher to the provided text
+   * \brief Apply the cipher to the provided text
    *
    * \param inputText the text to encrypt or decrypt
    * \param cipherMode whether to encrypt or decrypt the input text
    * \return the result of applying the cipher to the input text
    */
-    virtual std::string applyCipher( const std::string& input,
-		const CipherMode mode ) const = 0;
+    virtual std::string applyCipher( const std::string& inputText,
+		const CipherMode cipherMode ) const = 0;
   
   
 

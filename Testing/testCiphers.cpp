@@ -20,23 +20,37 @@ bool testCipher( const Cipher& cipher, const CipherMode mode,
  *and hence this method (or certainly my implementation) just seems more cumbersome and less clear than my original code below
  */
 TEST_CASE("Cipher encryption and decryption", "[cipher]"){
+
   std::vector<std::unique_ptr<Cipher>> ciphers;
+  std::vector<std::string> plainText;
+  std::vector<std::string> cipherText;
+  std::vector<std::string> decryptText;
+
   ciphers.push_back( cipherFactory( CipherType::Caesar, "10"));
+  plainText.push_back("HELLOWORLD");
+  cipherText.push_back("ROVVYGYBVN");
+  decryptText.push_back("HELLOWORLD");
+
   ciphers.push_back( cipherFactory( CipherType::Playfair, "hello"));
+  plainText.push_back("BOBISSOMESORTOFJUNIORCOMPLEXXENOPHONEONEZEROTHING");
+  cipherText.push_back("FHIQXLTLKLTLSUFNPQPKETFENIOLVSWLTFIAFTLAKOWATEQOKPPA");
+  decryptText.push_back("BOBISXSOMESORTOFIUNIORCOMPLEXQXENOPHONEONEZEROTHINGZ");
+
   ciphers.push_back( cipherFactory( CipherType::Vigenere, "testingthisabcdefghijklmnopqrstuvwxyz"));
+  plainText.push_back("INCREDIBLERESULTTHEREABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  cipherText.push_back("BRUKMQOUSMJETWOXYNLZNKMOQSUWYACEGIKMOJVKMCICQFH");
+  decryptText.push_back("INCREDIBLERESULTTHEREABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
   SECTION( "Encryption"){
-    REQUIRE(testCipher( *ciphers[0], CipherMode::Encrypt, "HELLOWORLD", "ROVVYGYBVN"));
-    REQUIRE(testCipher( *ciphers[1], CipherMode::Encrypt, "BOBISSOMESORTOFJUNIORCOMPLEXXENOPHONEONEZEROTHING", "FHIQXLTLKLTLSUFNPQPKETFENIOLVSWLTFIAFTLAKOWATEQOKPPA"));
-    REQUIRE(testCipher(*ciphers[2], CipherMode::Encrypt, "INCREDIBLERESULTTHEREABCDEFGHIJKLMNOPQRSTUVWXYZ", "BRUKMQOUSMJETWOXYNLZNKMOQSUWYACEGIKMOJVKMCICQFH"));
+    for ( size_t i{0}; i < ciphers.size(); ++i ) {
+      REQUIRE(testCipher( *ciphers[i], CipherMode::Encrypt, plainText[i], cipherText[i]));
     }
+  }
 
   SECTION( "Decryption"){
-    REQUIRE(testCipher( *ciphers[0], CipherMode::Decrypt, "ROVVYGYBVN", "HELLOWORLD"));
-    REQUIRE(testCipher(*ciphers[1], CipherMode::Decrypt, "FHIQXLTLKLTLSUFNPQPKETFENIOLVSWLTFIAFTLAKOWATEQOKPPA", "BOBISXSOMESORTOFIUNIORCOMPLEXQXENOPHONEONEZEROTHINGZ"));
-    REQUIRE(testCipher(*ciphers[2], CipherMode::Decrypt, "BRUKMQOUSMJETWOXYNLZNKMOQSUWYACEGIKMOJVKMCICQFH", "INCREDIBLERESULTTHEREABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-    
-
+    for ( size_t i{0}; i < ciphers.size(); ++i ) {
+      REQUIRE(testCipher( *ciphers[i], CipherMode::Decrypt, cipherText[i], decryptText[i]));
+    }
   }
   
 }

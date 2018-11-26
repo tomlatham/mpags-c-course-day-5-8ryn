@@ -20,10 +20,10 @@ std::unique_ptr<Cipher> cipherFactory( const CipherType type, const std::string 
   case CipherType::Vigenere :
     return std::make_unique<VigenereCipher>(key);
 
-  default :
-    //This case should never happen but added to keep compiler happy
-    std::cerr << "Unrecognised CipherType passed to cipherFactory, Caesar cipher returned" << std::endl;
-    return std::make_unique<CaesarCipher>(key);
-
   }
+
+  //This case should never happen but added to keep compiler happy
+  std::cerr << "[error] Unrecognised CipherType passed to cipherFactory" << std::endl;
+  return std::unique_ptr<Cipher>();
+
 }
